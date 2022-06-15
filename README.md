@@ -1,4 +1,4 @@
-# Profiling of type 1 diabetes-specific circulating immunome at disease onset 
+# Pediatric Autoimmunity and Diabetes
 
 In this study we analyze flowCytometry data to characterize the peripheral blood immune profile of children with new-onset T1D. Relatives of T1D patients with 0-1 islets autoantibodies, patients with other autoimmune diseases (celiac disease and autoimmune thyroiditis) and healthy patients were used as controls.
 Fresh whole blood samples were stained with five panels of antibodies against 26 surface markers and the intracellular marker FOXP3.
