@@ -90,5 +90,251 @@ template = rbind(
   )
 )
 
+# here I normalized some channels to provide as input to the unsupervised analysis a normalized gating set object
+
+gs <- normalize(gs, populations=c("CD4_Tcells", "CD8_Tcells"),
+                dims=c( "APC-A","APC-Cy7-A"), minCountThreshold = 50)
+
+
+
+
+template = rbind(
+  template, add_pop(
+    gs,pop="+",alias = "CD4_CD57+",parent = "CD4_Tcells",dims = "Pacific Blue-A",gating_method ="mindensity",gating_args = "min=0.5,max=1"
+  )
+)
+
+
+
+pdf("Tcells_norm/CD4_CD57+.pdf")
+ggcyto(gs[1:10],mapping = aes(x = "Pacific Blue-A",y = "SSC-A"),subset = "CD4_Tcells") +
+  geom_hex(bins=200)+geom_gate("CD4_CD57+")
+dev.off()
+
+library(ggridges)
+pdf("Tcells_norm/CD4_CD57+_BN.pdf")
+ggcyto(gs_pop_get_data(gs[1:10], "CD4_CD57+"), aes(x="Pacific Blue-A")) +
+  geom_density_ridges(mapping = aes(y = name), alpha = 0.4)+ facet_null()
+dev.off()
+
+gs <- normalize(gs, populations=c("CD4_CD57+"), bwFac = 3,
+                dims=c("Pacific Blue-A"), minCountThreshold = 50)
+
+
+pdf("Tcells_norm/CD4_CD57+_AN.pdf")
+ggcyto(gs_pop_get_data(gs[1:10], "CD4_CD57+"), aes(x="Pacific Blue-A")) +
+  geom_density_ridges(mapping = aes(y = name), alpha = 0.4)+ facet_null()
+dev.off()
+
+
+template = rbind(
+  template, add_pop(
+    gs,pop="-",alias = "CD8_CD57-",parent = "CD8_Tcells",dims = "Pacific Blue-A",gating_method ="mindensity",gating_args = "min=1.9,max=2"
+  )
+)
+
+pdf("Tcells_norm/CD8_CD57-.pdf")
+ggcyto(gs[1:10],mapping = aes(x = "Pacific Blue-A",y = "SSC-A"),subset = "CD8_Tcells") +
+  geom_hex(bins=200)+geom_gate("CD8_CD57-")
+dev.off()
+
+
+pdf("Tcells_norm/CD8_CD57-_BN.pdf")
+ggcyto(gs_pop_get_data(gs[1:10], "CD8_CD57-"), aes(x="Pacific Blue-A")) +
+  geom_density_ridges(mapping = aes(y = name), alpha = 5)+ facet_null()
+dev.off()
+
+gs <- normalize(gs, populations=c("CD8_CD57-"), bwFac =2,
+                dims=c("Pacific Blue-A"), minCountThreshold = 50)
+
+
+pdf("Tcells_norm/CD8_CD57-_AN.pdf")
+ggcyto(gs_pop_get_data(gs[1:10], "CD8_CD57-"), aes(x="Pacific Blue-A")) +
+  geom_density_ridges(mapping = aes(y = name), alpha = 0.4)+ facet_null()
+dev.off()
+
+
+template = rbind(
+  template, add_pop(
+    gs,pop="+",alias = "CD4_PD1+",parent = "CD4_Tcells",dims = "PE-Cy7-A",gating_method ="mindensity",gating_args = "min=1,max=1.5"
+  )
+)
+
+
+
+pdf("Tcells_norm/CD4_PD1+.pdf")
+ggcyto(gs[1:10],mapping = aes(x = "PE-Cy7-A",y = "SSC-A"),subset = "CD4_Tcells") +
+  geom_hex(bins=200)+geom_gate("CD4_PD1+")
+dev.off()
+
+
+pdf("Tcells_norm/CD4_PD1+_BN.pdf")
+ggcyto(gs_pop_get_data(gs[1:10], "CD4_PD1+"), aes(x="PE-Cy7-A")) +
+  geom_density_ridges(mapping = aes(y = name), alpha = 0.4)+ facet_null()
+dev.off()
+
+gs <- normalize(gs, populations=c("CD4_PD1+"), bwFac = 3,
+                dims=c("PE-Cy7-A"), minCountThreshold = 50)
+
+
+pdf("Tcells_norm/CD4_PD1+_AN.pdf")
+ggcyto(gs_pop_get_data(gs[1:10], "CD4_PD1+"), aes(x="PE-Cy7-A")) +
+  geom_density_ridges(mapping = aes(y = name), alpha = 0.4)+ facet_null()
+dev.off()
+
+
+template = rbind(
+  template, add_pop(
+    gs,pop="+",alias = "CD8_PD1+",parent = "CD8_Tcells",dims = "PE-Cy7-A",gating_method ="mindensity",gating_args = "min=1,max=1.5"#gating_args = "max=0.5"
+  )
+)
+
+pdf("Tcells_norm/CD8_PD1+.pdf")
+ggcyto(gs[1:10],mapping = aes(x = "PE-Cy7-A",y = "SSC-A"),subset = "CD8_Tcells") +
+  geom_hex(bins=200)+geom_gate("CD8_PD1+")
+dev.off()
+
+
+pdf("Tcells_norm/CD8_PD1+_BN.pdf")
+ggcyto(gs_pop_get_data(gs[1:10], "CD8_PD1+"), aes(x="PE-Cy7-A")) +
+  geom_density_ridges(mapping = aes(y = name), alpha = 0.4)+ facet_null()
+dev.off()
+
+gs <- normalize(gs, populations=c("CD8_PD1+"), bwFac = 3,
+                dims=c("PE-Cy7-A"), minCountThreshold = 50)
+
+
+pdf("Tcells_norm/CD8_PD1+_AN.pdf")
+ggcyto(gs_pop_get_data(gs[1:10], "CD8_PD1+"), aes(x="PE-Cy7-A")) +
+  geom_density_ridges(mapping = aes(y = name), alpha = 0.4)+ facet_null()
+dev.off()
+
+
+template = rbind(
+  template, add_pop(
+    gs,pop="+",alias = "CD4_CD45RA+",parent = "CD4_Tcells",dims = "FITC-A",gating_method ="mindensity",gating_args = "min=1,max=2"
+  )
+)
+
+
+pdf("Tcells_norm/CD4_CD45RA+.pdf")
+ggcyto(gs[1:10],mapping = aes(x = "FITC-A",y = "SSC-A"),subset = "CD4_Tcells") +
+  geom_hex(bins=200)+geom_gate("CD4_CD45RA+")
+dev.off()
+
+
+pdf("Tcells_norm/CD4_CD45RA+_BN.pdf")
+ggcyto(gs_pop_get_data(gs[1:10], "CD4_CD45RA+"), aes(x="FITC-A")) +
+  geom_density_ridges(mapping = aes(y = name), alpha = 0.4)+ facet_null()
+dev.off()
+
+gs <- normalize(gs, populations=c("CD4_CD45RA+"), bwFac = 2,
+                dims=c("FITC-A"), minCountThreshold = 50)
+
+
+pdf("Tcells_norm/CD4_CD45RA+_AN.pdf")
+ggcyto(gs_pop_get_data(gs[1:10], "CD4_CD45RA+"), aes(x="FITC-A")) +
+  geom_density_ridges(mapping = aes(y = name), alpha = 0.4)+ facet_null()
+dev.off()
+
+
+
+
+template = rbind(
+  template, add_pop(
+    gs,pop="+",alias = "CD4_CCR7+",parent = "CD4_Tcells",dims = "PE-A",gating_method ="mindensity",gating_args = "min=1,max=2"
+  )
+)
+
+
+
+pdf("Tcells_norm/CD4_CCR7+.pdf")
+ggcyto(gs[1:10],mapping = aes(x = "PE-A",y = "SSC-A"),subset = "CD4_Tcells") +
+  geom_hex(bins=200)+geom_gate("CD4_CCR7+")
+dev.off()
+
+
+pdf("Tcells_norm/CD4_CCR7+_BN.pdf")
+ggcyto(gs_pop_get_data(gs[1:10], "CD4_CCR7+"), aes(x="PE-A")) +
+  geom_density_ridges(mapping = aes(y = name), alpha = 0.4)+ facet_null()
+dev.off()
+
+gs <- normalize(gs, populations=c("CD4_CCR7+"), bwFac = 2,
+                dims=c("PE-A"), minCountThreshold = 50)
+
+
+pdf("Tcells_norm/CD4_CCR7+_AN.pdf")
+ggcyto(gs_pop_get_data(gs[1:10], "CD4_CCR7+"), aes(x="PE-A")) +
+  geom_density_ridges(mapping = aes(y = name), alpha = 0.4)+ facet_null()
+dev.off()
+
+
+
+template = rbind(
+  template, add_pop(
+    gs,pop="+",alias = "CD8_CD45RA+",parent = "CD8_Tcells",dims = "FITC-A",gating_method ="mindensity",gating_args = "min=2.4,max=3"
+  )
+)
+
+
+pdf("Tcells_norm/CD8_CD45RA+.pdf")
+ggcyto(gs[1:10],mapping = aes(x = "FITC-A",y = "SSC-A"),subset = "CD8_Tcells") +
+  geom_hex(bins=200)+geom_gate("CD8_CD45RA+")
+dev.off()
+
+
+pdf("Tcells_norm/CD8_CD45RA+_BN.pdf")
+ggcyto(gs_pop_get_data(gs[1:30], "CD8_CD45RA+"), aes(x="FITC-A")) +
+  geom_density_ridges(mapping = aes(y = name), alpha = 0.4)+ facet_null()
+dev.off()
+
+gs <- normalize(gs, populations=c("CD8_CD45RA+"), bwFac = 1,
+                dims=c("FITC-A"), minCountThreshold = 50)
+
+
+pdf("Tcells_norm/CD8_CD45RA+_AN.pdf")
+ggcyto(gs_pop_get_data(gs[1:10], "CD8_CD45RA+"), aes(x="FITC-A")) +
+  geom_density_ridges(mapping = aes(y = name), alpha = 0.4)+ facet_null()
+dev.off()
+
+
+template = rbind(
+  template, add_pop(
+    gs,pop="+",alias = "CD8_CCR7+",parent = "CD8_Tcells",dims = "PE-A",gating_method ="mindensity"
+  )
+)
+
+pdf("Tcells_norm/CD8_CCR7+.pdf")
+ggcyto(gs[1:10],mapping = aes(x = "PE-A",y = "SSC-A"),subset = "CD8_Tcells") +
+  geom_hex(bins=200)+geom_gate("CD8_CCR7+")
+dev.off()
+
+pdf("Tcells_norm/CD8_CCR7+_BN.pdf")
+ggcyto(gs_pop_get_data(gs[1:10], "CD8_CCR7+"), aes(x="PE-A")) +
+  geom_density_ridges(mapping = aes(y = name), alpha = 0.4)+ facet_null()
+dev.off()
+
+gs <- normalize(gs, populations=c("CD8_CCR7+"), bwFac = 2,
+                dims=c("PE-A"), minCountThreshold = 50)
+
+
+pdf("Tcells_norm/CD8_CCR7+_AN.pdf")
+ggcyto(gs_pop_get_data(gs[1:10], "CD8_CCR7+"), aes(x="PE-A")) +
+  geom_density_ridges(mapping = aes(y = name), alpha = 0.4)+ facet_null()
+dev.off()
+
+
+template <- rbind(template, add_pop(gs,
+                                    parent = "Tcells",
+                                    alias = "CD4_CD8_Tcells",
+                                    dims="APC-Cy7-A,APC-A",
+                                    gating_method ="boundary",gating_args ="min=c(2.5,2.4),max=c(4.4,4),quantile=0.95"))
+
+
+ggcyto(gs[1:10],mapping = aes(x = "APC-Cy7-A",y = "APC-A"),subset = "Tcells") +
+  geom_hex(bins=200)+geom_gate("CD4_Tcells")+geom_gate("CD8_Tcells")+geom_gate("CD4_CD8_Tcells")
+
+
 save_gs(gs,path="Tcells_gs")
+
 
