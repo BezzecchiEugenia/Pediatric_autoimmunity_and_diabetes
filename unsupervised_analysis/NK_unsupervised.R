@@ -275,3 +275,25 @@ tiff("NK_umap.tiff",width = 8, height = 4,units = 'in',res=200)
 
 saveRDS(sce, file = "sce_NK.rds", ascii = FALSE, version = NULL,compress = TRUE, refhook = NULL)
 
+#extract clusters' frequencies
+p3 <- plotFreqHeatmap(sce, k = "merging1", perc = TRUE,
+                      row_anno = FALSE, col_clust = FALSE,normalize = F)
+
+z<-p3@matrix
+z<-as.data.frame(p3@matrix)
+clust=as.character(row.names(z))
+z<-data.frame(t(z))
+z$sample_id=row.names(z)
+z$sample_id=NULL
+colnames(z)=clust
+
+md=read.delim("md.txt",row.names = 1)
+colnames(md)[3]="condition"
+colnames(md)[4]="age"
+colnames(md)[5]="sex"
+md=md[,c(1:5)]
+z$sample_id=row.names(z)
+z=merge.data.table(z,md,by="sample_id",all.x = T)
+write.table(z,paste0("NKcells","_unsup_stats.txt"),sep="\t",col.names = NA, quote=F)
+
+
