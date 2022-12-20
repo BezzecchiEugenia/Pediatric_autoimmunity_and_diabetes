@@ -300,6 +300,7 @@ dev.off()
 saveRDS(sce, file = "sce_Tcells.rds", ascii = FALSE, version = NULL,compress = TRUE, refhook = NULL)
 
 
+#extract clusters' frequencies
 p3 <- plotFreqHeatmap(sce, k = "merging1", perc = TRUE,
                       row_anno = FALSE, col_clust = FALSE,normalize = F)
 
@@ -318,4 +319,6 @@ colnames(md)[5]="sex"
 md=md[,c(1:5)]
 z$sample_id=row.names(z)
 z=merge.data.table(z,md,by="sample_id",all.x = T)
+write.table(z,paste0("Tcells","_unsup_stats.txt"),sep="\t",col.names = NA, quote=F)
+
 
